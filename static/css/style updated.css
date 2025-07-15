@@ -1,0 +1,77 @@
+
+/* Timeline container styling */
+.timeline {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    position: relative;
+}
+
+/* Line connecting timeline items */
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 15px;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(to bottom, #007bff, #00c6ff); /* Gradient line */
+}
+
+/* Timeline item styling */
+.timeline li {
+    margin-bottom: 30px;
+    padding-left: 30px;
+    position: relative;
+    animation: fadeIn 0.5s ease-in;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+}
+
+/* Marker for each timeline item */
+.timeline li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 7px;
+    width: 16px;
+    height: 16px;
+    background-color: #007bff;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.2); /* Glowing effect */
+    transition: transform 0.3s ease;
+}
+
+/* On scroll into view */
+.timeline li.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hover effect on markers */
+.timeline li:hover::before {
+    transform: scale(1.2); /* Slightly enlarge dot */
+}
+
+/* Keyframes for fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .timeline li {
+        padding-left: 40px;
+    }
+
+    .timeline::before {
+        left: 20px;
+    }
+
+    .timeline li::before {
+        left: 12px;
+    }
+}

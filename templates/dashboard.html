@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Welcome, {{ role }}</h2>
+<a href="/add_product" class="btn btn-success">Add/Update Product</a>
+<a href="/track" class="btn btn-info">Track Product</a>
+<a href="/logout" class="btn btn-secondary">Logout</a>
+<p>Current Time: {{ now.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+{% endblock %}

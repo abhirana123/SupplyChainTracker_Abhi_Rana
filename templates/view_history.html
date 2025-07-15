@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product History - {{ pid }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .qr {
+            margin-top: 20px;
+        }
+        .timeline {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Product ID: {{ pid }}</h2>
+
+    {% if history %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Block</th>
+                    <th>Updated By</th>
+                    <th>Description</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for block in history %}
+                    <tr>
+                        <td>{{ block.index }}</td>
+                        <td>{{ block.data.by | title }}</td>
+                        <td>{{ block.data.description }}</td>
+                        <td>{{ block.timestamp | datetimeformat }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="qr">
+            <h4>Scan QR Code:</h4>
+            <img src="data:image/png;base64,{{ qr }}" alt="QR Code for {{ pid }}">
+        </div>
+
+        <!-- Optional timeline -->
+        <div class="timeline" id="timeline">
+            <h3>Flow Timeline</h3>
+            <ul>
+                {% for block in history %}
+                    <li><strong>{{ block.data.by | title }}:</strong> {{ block.data.description }} ({{ block.timestamp | datetimeformat }})</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    {% else %}
+        <p>No history found for this Product ID.</p>
+    {% endif %}
+
+    <br>
+    <a href="{{ url_for('track') }}">⬅ Track Another Product</a>
+</body>
+</html>
